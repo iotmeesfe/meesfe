@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEESFE</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #0a0a0a;
+      color: #e0e0e0;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
+      padding: 15px 40px;
+      box-shadow: 0 0 20px #ff660044; /* naranja eléctrico */
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      height: 50px;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: 2px solid #ff6600;
+      color: #ff6600;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 20px;
+    }
+
+    .tabs button {
+      background: none;
+      border: none;
+      color: #ff6600; /* naranja eléctrico */
+      font-weight: 600;
+      cursor: pointer;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+    }
+
+    .tabs button:hover {
+      color: #fff;
+      box-shadow: 0 0 8px #ff6600aa;
+    }
+
+    .tabs button.active {
+      background: #ff660022;
+      color: #fff;
+      box-shadow: 0 0 10px #ff660088 inset;
+    }
+
+    main {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    section {
+      display: none;
+      animation: fade 0.5s ease;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .button {
+      background: none;
+      border: 2px solid #ff6600;
+      padding: 10px 25px;
+      color: #ff6600;
+      cursor: pointer;
+      font-size: 1em;
+      border-radius: 8px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .button:hover {
+      background: #ff6600;
+      color: #000;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #111;
+      color: #888;
+      font-size: 0.9em;
+    }
+
+    /* Media Queries para móvil */
+    @media (max-width: 768px) {
+      header {
+        padding: 10px 20px;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .tabs {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .tabs.show {
+        display: flex;
+      }
+      main {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="meesfe_logo.png" alt="MEESFE Logo">
+      <h1>MEESFE</h1>
+    </div>
+    <button class="menu-toggle">☰ Menú</button>
+    <div class="tabs">
+      <button class="active" data-tab="inicio">Inicio</button>
+      <button data-tab="nosotros">Nosotros</button>
+      <button data-tab="productos">Productos</button>
+      <button data-tab="portfolio">Portfolio</button>
+      <button data-tab="contacto">Contacto</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="inicio" class="active">
+      <h2>Bienvenido a MEESFE</h2>
+      <p>Soluciones en microelectrónica y electromecánica para control y reparación automotriz.</p>
+      <button class="button" onclick="switchTab('productos')">Ver nuestro primer producto</button>
+    </section>
+
+    <section id="nosotros">
+      <h2>Nosotros</h2>
+      <p>MEESFE se dedica al desarrollo de soluciones electrónicas minimalistas y dispositivos de precisión para la industria automotriz y la electrónica de control.</p>
+    </section>
+
+    <section id="productos">
+      <h2>Productos</h2>
+      <p><strong>Tester de Inyectores:</strong> Diagnóstico rápido y confiable de inyectores de autos, combinando microelectrónica y precisión electromecánica.</p>
+      <button class="button">Más información</button>
+    </section>
+
+    <section id="portfolio">
+      <h2>Portfolio</h2>
+      <p>Prototipos de sistemas de control, dispositivos de medición y desarrollo de hardware para reparación automotriz.</p>
+    </section>
+
+    <section id="contacto">
+      <h2>Contacto</h2>
+      <p>Escribinos para consultas o desarrollos a medida.</p>
+      <button class="button">Contactar</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 MEESFE - Microelectrónica y Electromecánica Santa Fe</p>
+  </footer>
+
+  <script>
+    // Cambio de pestañas
+    const buttons = document.querySelectorAll('.tabs button');
+    const sections = document.querySelectorAll('section');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const tab = btn.dataset.tab;
+        sections.forEach(sec => {
+          sec.classList.remove('active');
+          if (sec.id === tab) sec.classList.add('active');
+        });
+
+        // Cerrar menú en móvil al seleccionar
+        if (window.innerWidth <= 768) {
+          tabs.classList.remove('show');
+        }
+      });
+    });
+
+    function switchTab(tabName) {
+      const tabButton = document.querySelector(`.tabs button[data-tab='${tabName}']`);
+      if (tabButton) tabButton.click();
+    }
+
+    // Toggle menú móvil
+    const menuToggle = document.querySelector('.menu-toggle');
+    const tabs = document.querySelector('.tabs');
+
+    menuToggle.addEventListener('click', () => {
+      tabs.classList.toggle('show');
+    });
+  </script>
+</body>
+</html>
